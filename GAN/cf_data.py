@@ -8,6 +8,7 @@ DATA_DIR 		= 'dataset/'
 META_FILE 		= DATA_DIR + 'batches.meta'
 DATA_BATCHES 	= [(DATA_DIR + 'data_batch_' + str(i)) for i in range(1, 6)]
 TEST_BATCH 		= DATA_DIR + 'test_batch'
+NOISE_SIZE 		= [8, 8, 1]
 
 # ------------------------------------------ Interface -----------------------------------------------
 
@@ -26,7 +27,8 @@ def save_image(r, g, b, filename = 'image.png'):
 		png_write.write(f, img_data)
 
 def train_input_fn(imgs, labels, batch_size):
-	dataset = tf.data.Dataset.from_tensor_slices(({'img': imgs}, labels))
+	data = {'img': imgs, 'noise': np.random.random(([len(imgs)] + NOISE_SIZE))}
+	dataset = tf.data.Dataset.from_tensor_slices((data, labels))
 	dataset = dataset.shuffle(int(5e5)).repeat().batch(batch_size)
 	return dataset.make_one_shot_iterator().get_next()
 
