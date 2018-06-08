@@ -1,0 +1,10 @@
+# Python:
+*.pyc
+
+# Dataset
+dataset
+model
+__pycache__/
+
+# Dev
+*.png
