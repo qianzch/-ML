@@ -26,14 +26,9 @@ def save_image(r, g, b, filename = 'image.png'):
 	with open(filename, 'wb') as f:
 		png_write.write(f, img_data)
 
-def train_input_fn(imgs, labels, batch_size):
-	data = {'img': imgs / 255.0, 'noise': np.random.random(([len(imgs)] + NOISE_SIZE))}
-	dataset = tf.data.Dataset.from_tensor_slices((data, labels))
-	dataset = dataset.shuffle(int(5e5)).repeat().batch(batch_size)
-	return dataset.make_one_shot_iterator().get_next()
-
 # ---------------------------------------- End Interface ---------------------------------------------
 
+# keys: [b'batch_label', b'labels', b'data', b'filenames']
 def load_train_data(size = 5):
 	# smaller data size for dev
 	if size > 5 or size < 1:
