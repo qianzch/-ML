@@ -1,11 +1,10 @@
 # Python:
 *.pyc
 
-# Dataset
+# Dev
 dataset
 model
 tensorboard
 __pycache__/
-
-# Dev
 *.png
+debug.txt
